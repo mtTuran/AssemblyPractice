@@ -1,0 +1,44 @@
+******* DMC8 Project File *******
+* If you read this message, you need to install the last version of Deeds! *
+FVR 2
+DMC 2
+ROM 5
+RAM 5
+POH 7
+POG 6
+POF 5
+POE 4
+POD 3
+POC 2
+POB 1
+POA 0
+PIH 7
+PIG 6
+PIF 5
+PIE 4
+PID 3
+PIC 2
+PIB 1
+PIA 0
+******* DMC8 Project File *******
+; RESULT EQU AA01h
+;
+;
+ORG 0000h
+JP 0100h
+;
+ORG 100h
+SUM:	LD A, 19h ; 25 decimal
+	LD B, A
+	LD A, 14h ; 20 decimal
+	ADD A, B  ; 20 + 25 = 45 -> A; 2Dh
+	LD (0AA00h), A
+	LD A, 11h ; 17 decimal
+	LD B, A
+	LD A, 21h ; 33 decimal
+	ADD A, B  ; 33 + 17 = 50 -> A; 32h
+	LD B, A
+	LD A, (0AA00h)
+	ADD A, B  ; 45 + 50 = 95 -> A; 5Fh
+	LD (0AA01h), A
+	HALT

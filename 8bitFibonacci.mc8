@@ -1,0 +1,55 @@
+******* DMC8 Project File *******
+* If you read this message, you need to install the last version of Deeds! *
+FVR 2
+DMC 2
+ROM 5
+RAM 5
+POH 7
+POG 6
+POF 5
+POE 4
+POD 3
+POC 2
+POB 1
+POA 0
+PIH 7
+PIG 6
+PIF 5
+PIE 4
+PID 3
+PIC 2
+PIB 1
+PIA 0
+******* DMC8 Project File *******
+RESULT EQU 8000H
+; ------------------
+ORG 0000H
+JP 0100H
+ORG 0100H
+; ------------------
+INITIALIZE:	LD HL, RESULT	
+	LD A, 01H
+	LD (HL), A	; BASE CASE 1
+	INC HL
+	LD (HL), A	; BASE CASE 2
+	DEC HL
+	LD E, L	; we can't add ýx and hl thus we need a helper
+	LD D, H
+	LD IX, 00H	; we can't load 16 bit register to another 16 bit register
+	LD IY, 00H	; but we can add them. PUHAHAHAHA!
+	ADD IX, DE	; pointer to prev prev item
+	INC DE
+	ADD IY, DE	; pointer to prev item
+	INC HL
+	INC HL	; pointer to result
+	LD B, 0BH	; compute the next 11 items
+LOOP:	LD A, (IX)
+	ADD A, (IY)
+	LD (HL), A
+	INC IX
+	INC IY
+	INC HL
+	DEC B
+	JP NZ, LOOP
+END:	HALT
+
